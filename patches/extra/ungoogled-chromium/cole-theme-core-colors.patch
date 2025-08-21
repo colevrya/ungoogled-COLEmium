@@ -1,0 +1,52 @@
+description: COLEMium purple top-chrome defaults via color mixer overrides
+author: Cole-themed branding
+
+--- a/chrome/browser/ui/color/chrome_color_mixer.cc
++++ b/chrome/browser/ui/color/chrome_color_mixer.cc
+@@
+ void AddChromeColorMixers(ui::ColorProvider* provider,
+                           const ui::ColorProviderKey& key) {
+   // existing code that sets up Chrome color mixers...
+@@
+   // COLEMium: override select top-chrome colors with a sleek purple palette.
+   // This mixer is appended last so it wins over previous defaults.
+   {
+     auto& mixer = provider->AddMixer();
+     const SkColor cole_purple_700 = SkColorSetRGB(0x6d, 0x28, 0xd9);  // #6d28d9
+     const SkColor cole_purple_600 = SkColorSetRGB(0x7c, 0x3a, 0xed);  // #7c3aed
+     const SkColor cole_purple_800 = SkColorSetRGB(0x3b, 0x20, 0x6f);
+     const SkColor cole_bg_dark    = SkColorSetRGB(0x12, 0x0d, 0x20);  // near #0f0b1a
+    const SkColor cole_purple_glow = SkColorSetARGB(0x66, 0xA7, 0x8B, 0xFA); // translucent #a78bfa
+
+     // Frames and toolbar
+     mixer[chrome_colors::kColorFrameActive] = {cole_purple_700};
+     mixer[chrome_colors::kColorFrameInactive] = {cole_purple_800};
+     mixer[chrome_colors::kColorToolbar] = {cole_bg_dark};
+
+     // Tabstrip backgrounds
+     mixer[chrome_colors::kColorTabBackgroundActive] = {SkColorSetRGB(0x22, 0x18, 0x3a)};
+     mixer[chrome_colors::kColorTabBackgroundInactive] = {SkColorSetRGB(0x15, 0x0e, 0x25)};
+
+     // Tab foregrounds
+     mixer[chrome_colors::kColorTabForegroundActive] = {SK_ColorWHITE};
+     mixer[chrome_colors::kColorTabForegroundInactive] = {SkColorSetARGB(0xCC, 0xE6, 0xDA, 0xFF)};
+
+     // Toolbar separators/accents
+     mixer[chrome_colors::kColorToolbarContentAreaSeparator] = {cole_purple_600};
+    
+    // Toolbar button icons and ink drops (hover/press ripples)
+    mixer[chrome_colors::kColorToolbarButtonIcon] = {SkColorSetRGB(0xE6, 0xDA, 0xFF)}; // soft white-purple
+    mixer[chrome_colors::kColorToolbarButtonIconInactive] = {SkColorSetARGB(0xAA, 0xE6, 0xDA, 0xFF)};
+    mixer[chrome_colors::kColorToolbarInkDrop] = {cole_purple_glow};
+    mixer[chrome_colors::kColorToolbarButtonBackgroundHighlightedDefault] = {SkColorSetARGB(0x22, 0xA7, 0x8B, 0xFA)};
+
+    // Focus rings and outlines
+    mixer[chrome_colors::kColorFocusRing] = {cole_purple_600};
+    mixer[chrome_colors::kColorFocusableBorderFocused] = {cole_purple_600};
+
+    // Hover card background
+    mixer[chrome_colors::kColorTabHoverCardBackground] = {SkColorSetARGB(0xF0, 0x20, 0x18, 0x3A)};
+   }
+ }
+
+

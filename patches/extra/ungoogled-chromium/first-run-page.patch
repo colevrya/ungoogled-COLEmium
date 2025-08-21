@@ -56,25 +56,22 @@
 +                        const content::WebContents::Getter& wc_getter,
 +                        GotDataCallback callback) {
 +    std::string source = R"(
-+<title>ungoogled-chromium first run page</title>
++<title>COLEMium — First Run</title>
 +<meta name="color-scheme" content="light dark">
 +<style>
 + @import url(chrome://resources/css/text_defaults_md.css);
-+ html{color:#202124; background:white; line-height:1.1em}
-+ a{color:#1967d2}
-+ h2{margin:0; padding:0.67em 1.33em}
-+ p,details{border-top:.063em solid #f0f0f0; margin:0; padding:1em 2em}
++ :root{--cole-purple-700:#6d28d9; --cole-purple-600:#7c3aed; --cole-purple-500:#8b5cf6; --cole-purple-400:#a78bfa}
++ html{color:#efeaff; background: radial-gradient(1200px 600px at -10% -10%, rgba(124 58 237 /.18) 0, #0000 60%), radial-gradient(1200px 600px at 120% 10%, rgba(167 139 250 /.18) 0, #0000 60%), #0f0b1a; line-height:1.15em}
++ a{color:var(--cole-purple-400); text-decoration:none}
++ a:hover{color:white; text-shadow:0 0 .5em rgba(167 139 250 /.7)}
++ h2{margin:0; padding:0.9em 1.4em; font-size:1.6em; background: linear-gradient(90deg, var(--cole-purple-700), var(--cole-purple-400)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 .65rem rgba(124 58 237 /.45))}
++ p,details{border-top:.063em solid rgba(255 255 255 /.08); margin:0; padding:1.05em 2em}
 + ul,ol{padding-left:2em}
-+ code{background:rgba(128 128 128 / .2); padding:0 0.5em; border-radius:0.25em}
++ code{background:rgba(124 58 237 / .10); padding:0 .5em; border-radius:.4em}
 + summary{cursor:pointer}
-+ section{width:60em; margin:4em auto; border-radius:.5em;
-+         background:white; box-shadow:0 .063em .125em 0 #c4c5c6, 0 .125em .375em .125em #e2e3e3}
-+ @media(prefers-color-scheme:dark){
-+  html{color:#e8eaed; background:#202124}
-+  a{color:#8ab4f8}
-+  p,details{border-top:.063em solid #3f4042}
-+  section{background:#292a2d; box-shadow:0 .063em .125em 0 #161719, 0 .125em .375em .125em #1b1c1f}
-+ }
++ section{position:relative; width:min(62em, 92vw); margin:4em auto; border-radius:1rem; background:rgba(25 17 45 /.6); border:1px solid rgba(167 139 250 /.22); box-shadow:0 .8rem 1.6rem rgba(8 6 16 /.55), 0 .1rem .3rem rgba(8 6 16 /.6); backdrop-filter:saturate(140%) blur(10px)}
++ section::before{content:""; position:absolute; inset:-2px; border-radius:inherit; padding:2px; background:linear-gradient(135deg, rgba(124 58 237 /.7), rgba(167 139 250 /.5)); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; filter:blur(12px); opacity:.6; pointer-events:none}
++ .cta{display:inline-block; margin:.5em 0; padding:.6em 1.1em; border-radius:.6em; color:white; background:linear-gradient(135deg, var(--cole-purple-700), var(--cole-purple-500)); box-shadow:0 .3rem .7rem rgba(124 58 237 /.35)}
 +</style>
 +<base target="_blank">
 +<section>

@@ -162,14 +162,17 @@ def _extract_tar_with_python(archive_path, output_dir, relative_to):
         get_logger().exception('Unexpected exception during symlink support check.')
         raise
 
+    # Normalize relative_to to POSIX semantics used by tar member names
+    rel_to_posix = PurePosixPath(relative_to) if relative_to is not None else None
+
     with tarfile.open(str(archive_path), f'r|{archive_path.suffix[1:]}') as tar_file_obj:
         tar_file_obj.members = NoAppendList()
         for tarinfo in tar_file_obj:
             try:
-                if relative_to is None:
+                if rel_to_posix is None:
                     destination = output_dir / PurePosixPath(tarinfo.name)
                 else:
-                    destination = output_dir / PurePosixPath(tarinfo.name).relative_to(relative_to)
+                    destination = output_dir / PurePosixPath(tarinfo.name).relative_to(rel_to_posix)
                 if tarinfo.issym() and not symlink_supported:
                     # In this situation, TarFile.makelink() will try to create a copy of the
                     # target. But this fails because TarFile.members is empty
@@ -179,7 +182,7 @@ def _extract_tar_with_python(archive_path, output_dir, relative_to):
                 if tarinfo.islnk():
                     # Derived from TarFile.extract()
                     new_target = output_dir / PurePosixPath(
-                        tarinfo.linkname).relative_to(relative_to)
+                        tarinfo.linkname).relative_to(rel_to_posix) if rel_to_posix is not None else output_dir / PurePosixPath(tarinfo.linkname)
                     tarinfo._link_target = new_target.as_posix() # pylint: disable=protected-access
                 if destination.is_symlink():
                     destination.unlink()

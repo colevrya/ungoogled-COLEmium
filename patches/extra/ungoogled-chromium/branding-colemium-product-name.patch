@@ -1,0 +1,32 @@
+description: Rename Chromium product strings to COLEMium
+author: Cole-themed branding
+
+--- a/chrome/app/chromium_strings.grd
++++ b/chrome/app/chromium_strings.grd
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <grit base_dir=".." latest_public_release="0" current_release="1"
+      output_all_resource_defines="false" use_consistent_ids="true">
+-  <outputs>
++  <outputs>
+     <output filename="grit/chromium_strings.h" type="rc_header"/>
+   </outputs>
+   <release seq="1">
+@@
+-    <message name="IDS_PRODUCT_NAME" desc="Full product name">
+-      Chromium
+-    </message>
++    <message name="IDS_PRODUCT_NAME" desc="Full product name">
++      COLEMium
++    </message>
+@@
+-    <message name="IDS_SHORT_PRODUCT_NAME" desc="Short product name">
+-      Chromium
+-    </message>
++    <message name="IDS_SHORT_PRODUCT_NAME" desc="Short product name">
++      COLEMium
++    </message>
+   </release>
+ </grit>
+
+

@@ -1,8 +1,50 @@
-# ungoogled-chromium
+# COLEMium
 
-*A lightweight approach to removing Google web service dependency*
+Sleek, modern, purple — a Chromium fork tailored for Cole, built on top of ungoogled‑chromium’s privacy‑first foundation. COLEMium adds custom branding and a refined purple top‑chrome while retaining the upstream Chromium experience and ungoogled hardening.
 
 **Help is welcome!** See the [docs/contributing.md](docs/contributing.md) document for more information.
+
+## How to build (Windows, detailed)
+
+Requirements
+- Visual Studio 2022 with “Desktop development with C++” and Windows 10/11 SDK
+- Python 3, Git, 7‑Zip; 150+ GB free disk; 16–32 GB RAM recommended
+- Run in “x64 Native Tools Command Prompt for VS 2022”, or let the script auto‑init VS
+
+Option A — one‑shot script
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_colemium_windows.ps1 -Jobs 8
+```
+This will:
+- Download Chromium sources and tool deps
+- Prune binaries, apply COLEMium/ungoogled patches, run domain substitution
+- Bootstrap GN, generate build files, and build `chrome.exe`
+
+Result: `build\src\out\Default\chrome.exe`
+
+Option B — manual steps
+```bat
+:: From repo root
+python utils\downloads.py retrieve -c build\download_cache -i downloads.ini
+python utils\downloads.py unpack   -c build\download_cache -i downloads.ini -- build\src
+
+python utils\prune_binaries.py build\src pruning.list
+python utils\patches.py apply build\src patches
+python utils\domain_substitution.py apply -r domain_regex.list -f domain_substitution.list -c build\domsubcache.tar.gz build\src
+
+mkdir build\src\out\Default
+cd build\src
+python tools\gn\bootstrap\bootstrap.py --skip-generate-buildfiles -j8 -o out\Default\
+copy ..\..\flags.gn out\Default\args.gn
+out\Default\gn gen out\Default --fail-on-unused-args
+ninja -C out\Default chrome
+```
+
+Tips
+- For faster builds, put in `out\Default\args.gn` before `gn gen`:
+  - `is_debug=false`
+  - `is_component_build=false`
+- If `ninja` isn’t found, use `third_party\ninja\ninja.exe` or `autoninja`.
 
 ## Objectives
 

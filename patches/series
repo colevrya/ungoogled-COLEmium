@@ -101,7 +101,6 @@ extra/ungoogled-chromium/add-flag-for-incognito-themes.patch
 extra/ungoogled-chromium/add-flags-for-referrer-customization.patch
 extra/ungoogled-chromium/default-webrtc-ip-handling-policy.patch
 extra/ungoogled-chromium/add-flags-for-existing-switches.patch
-extra/ungoogled-chromium/first-run-page.patch
 extra/ungoogled-chromium/add-flag-to-reduce-system-info.patch
 extra/ungoogled-chromium/add-flag-to-remove-client-hints.patch
 extra/ungoogled-chromium/disable-downloads-page-referrer-url.patch
@@ -112,3 +111,4 @@ extra/ungoogled-chromium/enable-certificate-transparency-and-add-flag.patch
 extra/ungoogled-chromium/add-flag-to-spoof-webgl-renderer-info.patch
 extra/ungoogled-chromium/add-flag-to-increase-incognito-storage-quota.patch
 extra/ungoogled-chromium/add-credits.patch
+extra/ungoogled-chromium/cole-theme-core-colors.patch
